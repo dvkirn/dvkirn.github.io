@@ -1,13 +1,14 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="1;url=http://dvkirn.wordpress.com/techne">
-        <script type="text/javascript">
-            window.top.location.href = "https://dvkirn.wordpress.com/techne";
-        </script>
-        <title>Page Redirection</title>
-    </head>
+  <head>
+    <script type="text/javascript">
+      if (window.top.location != window.location) {
+          window.top.location = window.location;
+      }
+      window.top.location.href = "https://dvkirn.wordpress.com/techne";
+    </script>
+    <title>Page Redirection</title>
+  </head>
     <body>
       If you are not redirected automatically to the main Techne page
       <a href='https://dvkirn.wordpress.com/techne'>click here</a>
