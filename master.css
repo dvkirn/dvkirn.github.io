@@ -4,7 +4,12 @@
     padding-left: 1%;
     padding-right: 1%;
     background-color: white;
-    border-style: solid;
+    border-style: none;
+}
+
+.title {
+    text-align: center;
+    font-family: "Anonymous Pro";
 }
 
 .footer {
@@ -17,20 +22,28 @@
 .navlist {
     float: left;
     list-style-type: none;
+    width:12.5%;
 }
 
 .navlink {
     display: block;
     font-weight: bold;
     color: white;
-    background-color: #3d3d3d;
+    //background-color: #3d3d3d;
     font-family: 'Anonymous Pro';
     text-decoration: none;
-    text-transform: uppercase;
+    //text-transform: uppercase;
     text-align: center;
     width: 150%;
+    font-size: 150%;
 }
 
 a.navlink:hover, a.navlink:active {
     background-color: blue;
+}
+
+body {
+    background-color:black;
+    background-image: url("space2.jpg");
+    font-family:"Gentium Book Basic";
 }
