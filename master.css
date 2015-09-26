@@ -3,13 +3,15 @@
     width: 75%;
     padding-left: 1%;
     padding-right: 1%;
+    padding-bottom: 1%;
     background-color: white;
     border-style: none;
+    text-align: left;
 }
 
 .title {
     text-align: center;
-    font-family: "Anonymous Pro";
+    font-family: "Raleway", "Times", "Georgia";
 }
 
 .footer {
@@ -17,6 +19,12 @@
     width: 75%;
     color: white;
     font-family: 'Anonymous Pro';
+}
+
+body {
+    //background-color:black;
+    background-image: url("https://dvkirn.files.wordpress.com/2015/09/space2.jpg");
+    font-family:"Georgia", "Helvetica", "Arial";
 }
 
 .navlist {
@@ -30,20 +38,28 @@
     font-weight: bold;
     color: white;
     //background-color: #3d3d3d;
-    font-family: 'Anonymous Pro';
+    font-family: "Raleway", "Serif";
     text-decoration: none;
     //text-transform: uppercase;
     text-align: center;
     width: 150%;
     font-size: 150%;
+
+    margin: 2px;
+    padding: 2px;
+    border: 2px;
+    border-color: white;
+    border-style: hidden;
 }
 
-a.navlink:hover, a.navlink:active {
-    background-color: blue;
+a.navlink:hover {
+    //background-color: blue;
+    border-style: solid;
+    padding: 0px;
 }
 
-body {
-    background-color:black;
-    background-image: url("https://dvkirn.files.wordpress.com/2015/09/space2.jpg");
-    font-family:"Gentium Book Basic";
+a.navlink:active {
+    background-color: red;
+    border-style: solid;
+    padding: 0px;
 }
