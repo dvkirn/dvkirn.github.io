@@ -13,7 +13,7 @@
 .navlink {
     display: block;
     font-weight: bold;
-    color: white;
+    color: #cfcfcf;
     //background-color: #3d3d3d;
     font-family: "Raleway", "Serif", "Arial";
     text-decoration: none;
@@ -29,8 +29,54 @@
     border-style: hidden;
 }
 
+.post_nav_link {
+    text-decoration: none;
+    margin: 2px;
+    padding: 2px;
+    border: 1px;
+    border-color: white;
+    border-style: hidden;
+}
+
+a:link {
+    color: #cfcfcf;
+}
+
+a:visited {
+    color: #b8b8b8;
+}
+
+a:hover {
+    color: white;
+}
+
+a:active {
+    color: red;
+}
+
+a.post_nav_link:visited {
+    color: #cfcfcf;
+}
+
+a.post_nav_link:hover {
+    color: white;
+    border-style: solid;
+}
+
+a.post_nav_link:active {
+    background-color: red;
+}
+
+a.navlink:link {
+    color: #cfcfcf;
+}
+
+a.navlink:visited {
+    color: #cfcfcf;
+}
+
 a.navlink:hover {
-    //background-color: blue;
+    color: white;
     border-style: solid;
     padding: 0px;
 }
