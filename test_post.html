@@ -42,6 +42,103 @@
 
         <p>Far quitting dwelling graceful the likewise received building. An fact so to that show am shed sold cold. Unaffected remarkably get yet introduced excellence terminated led. Result either design saw she esteem and. On ashamed no inhabit ferrars it ye besides resolve. Own judgment directly few trifling. Elderly as pursuit at regular do parlors. Rank what has into fond she. </p>
 
+        <p>Code example</p>
+        
+        <pre>
+STBTT_DEF int stbtt_FindGlyphIndex(const stbtt_fontinfo *info, int unicode_codepoint)
+{
+   stbtt_uint8 *data = info->data;
+   stbtt_uint32 index_map = info->index_map;
+
+   stbtt_uint16 format = ttUSHORT(data + index_map + 0);
+   if (format == 0) { // apple byte encoding
+      stbtt_int32 bytes = ttUSHORT(data + index_map + 2);
+      if (unicode_codepoint < bytes-6)
+         return ttBYTE(data + index_map + 6 + unicode_codepoint);
+      return 0;
+   } else if (format == 6) {
+      stbtt_uint32 first = ttUSHORT(data + index_map + 6);
+      stbtt_uint32 count = ttUSHORT(data + index_map + 8);
+      if ((stbtt_uint32) unicode_codepoint >= first && (stbtt_uint32) unicode_codepoint < first+count)
+         return ttUSHORT(data + index_map + 10 + (unicode_codepoint - first)*2);
+      return 0;
+   } else if (format == 2) {
+      STBTT_assert(0); // @TODO: high-byte mapping for japanese/chinese/korean
+      return 0;
+   } else if (format == 4) { // standard mapping for windows fonts: binary search collection of ranges
+      stbtt_uint16 segcount = ttUSHORT(data+index_map+6) >> 1;
+      stbtt_uint16 searchRange = ttUSHORT(data+index_map+8) >> 1;
+      stbtt_uint16 entrySelector = ttUSHORT(data+index_map+10);
+      stbtt_uint16 rangeShift = ttUSHORT(data+index_map+12) >> 1;
+
+      // do a binary search of the segments
+      stbtt_uint32 endCount = index_map + 14;
+      stbtt_uint32 search = endCount;
+
+      if (unicode_codepoint > 0xffff)
+         return 0;
+
+      // they lie from endCount .. endCount + segCount
+      // but searchRange is the nearest power of two, so...
+      if (unicode_codepoint >= ttUSHORT(data + search + rangeShift*2))
+         search += rangeShift*2;
+
+      // now decrement to bias correctly to find smallest
+      search -= 2;
+      while (entrySelector) {
+         stbtt_uint16 end;
+         searchRange >>= 1;
+         end = ttUSHORT(data + search + searchRange*2);
+         if (unicode_codepoint > end)
+            search += searchRange*2;
+         --entrySelector;
+      }
+      search += 2;
+
+      {
+         stbtt_uint16 offset, start;
+         stbtt_uint16 item = (stbtt_uint16) ((search - endCount) >> 1);
+
+         STBTT_assert(unicode_codepoint <= ttUSHORT(data + endCount + 2*item));
+         start = ttUSHORT(data + index_map + 14 + segcount*2 + 2 + 2*item);
+         if (unicode_codepoint < start)
+            return 0;
+
+         offset = ttUSHORT(data + index_map + 14 + segcount*6 + 2 + 2*item);
+         if (offset == 0)
+            return (stbtt_uint16) (unicode_codepoint + ttSHORT(data + index_map + 14 + segcount*4 + 2 + 2*item));
+
+         return ttUSHORT(data + offset + (unicode_codepoint-start)*2 + index_map + 14 + segcount*6 + 2 + 2*item);
+      }
+   } else if (format == 12 || format == 13) {
+      stbtt_uint32 ngroups = ttULONG(data+index_map+12);
+      stbtt_int32 low,high;
+      low = 0; high = (stbtt_int32)ngroups;
+      // Binary search the right group.
+      while (low < high) {
+         stbtt_int32 mid = low + ((high-low) >> 1); // rounds down, so low <= mid < high
+         stbtt_uint32 start_char = ttULONG(data+index_map+16+mid*12);
+         stbtt_uint32 end_char = ttULONG(data+index_map+16+mid*12+4);
+         if ((stbtt_uint32) unicode_codepoint < start_char)
+            high = mid;
+         else if ((stbtt_uint32) unicode_codepoint > end_char)
+            low = mid+1;
+         else {
+            stbtt_uint32 start_glyph = ttULONG(data+index_map+16+mid*12+8);
+            if (format == 12)
+               return start_glyph + unicode_codepoint-start_char;
+            else // format == 13
+               return start_glyph;
+         }
+      }
+      return 0; // not found
+   }
+   // @TODO
+   STBTT_assert(0);
+   return 0;
+}
+        </pre>
+
         <p>Must you with him from him her were more. In eldest be it result should remark vanity square. Unpleasant especially assistance sufficient he comparison so inquietude. Branch one shy edward stairs turned has law wonder horses. Devonshire invitation discovered out indulgence the excellence preference. Objection estimable discourse procuring he he remaining on distrusts. Simplicity affronting inquietude for now sympathize age. She meant new their sex could defer child. An lose at quit to life do dull. </p>
 
         <p>Unpacked reserved sir offering bed judgment may and quitting speaking. Is do be improved raptures offering required in replying raillery. Stairs ladies friend by in mutual an no. Mr hence chief he cause. Whole no doors on hoped. Mile tell if help they ye full name. </p>

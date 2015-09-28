@@ -7,7 +7,12 @@
 .navlist {
     float: left;
     list-style-type: none;
+    position: fixed;
     width:12.5%;
+    //border-style: solid none solid none;
+    border-color: white;
+    //margin-left: 2%;
+    //margin-top: 5%;
 }
 
 .navlink {
@@ -19,10 +24,10 @@
     text-decoration: none;
     //text-transform: uppercase;
     text-align: center;
-    width: 150%;
+    width: 100%;
     font-size: 150%;
 
-    margin: 2px;
+    //margin-left: 25%;
     padding: 2px;
     border: 2px;
     border-color: white;
@@ -61,10 +66,12 @@ a.post_nav_link:visited {
 a.post_nav_link:hover {
     color: white;
     border-style: solid;
+    padding: 1px;
 }
 
 a.post_nav_link:active {
     background-color: red;
+    padding: 1px;
 }
 
 a.navlink:link {
@@ -90,6 +97,15 @@ a.navlink:active {
 body {
     background-color: #1d1d1d;
     font-family:"Georgia", "Serif", "Arial";
+}
+
+pre {
+    border: 2px;
+    border-color: white;
+    border-style: solid;
+    padding: 1%;
+    white-space: pre-wrap;
+    background-color: #0d0d0d;
 }
 
 .text_box {
